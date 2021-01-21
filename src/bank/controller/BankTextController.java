@@ -37,46 +37,35 @@ public class BankTextController {
         }
         return output;
     }
-    
-    public String[] getHeader(){
-        String[] header = {"ID","First Name","Last Name","Accounts"};
-        return header;
-    }
+
     
     //Recibe un hashTable y busca una key, si existe, regresa una tabla con
     //la informacion del resultado de la busqueda. Si no existe, regresa
     //un apuntador null
-    public String[][] getHashTable(String key)
-    {
-        int j;
+    public String[][] getHashTable(String key) {
         BankTextReader bankBuilder = new BankTextReader();
-        Hashtable<String,String> input = bankBuilder.bankHashReader("Bank.txt");
-        String[][] output = new String[0][4];
-        //Si existe el elemento
-        if(input.containsKey(key)){
-            String line;
-            String accounts;
-            String[] split;
-            //Recibe la linea del .txt correspondiente
-            line = input.get(key);
-            //y lo divide en los elementos necesarios para mostrarlo en una tabla
-            split = line.split(",");
-            //colocandolos en la matriz output
-            for(j=0;j<3;j++){
-                output[0][j] = split[j];
+        Hashtable<String, String> input = bankBuilder.bankHashReader("Bank.txt");
+        String[][] output = new String[3][5];
+        if (input.containsKey(key)) {
+            String line = input.get(key);;
+            String[] split = line.split(",");
+            for (int i = 0; i < 3; i++) {
+                for (int k = 0; k < 3; k++) {
+                    output[i][k] = split[k];
+                }
             }
-            //acomoda todos los IDAccount en un solo elemento de la matriz
-            accounts = split[3];
-            for(j=6;j<split.length;j++){
-                accounts = accounts + ", " + split[j];
-                j = j + 2;
-            }
-            output[0][3] = accounts;
+            output[0][3] = split[5];
+            output[0][4] = split[4];
+            output[1][3] = split[8];
+            output[1][4] = split[7];
+            output[2][3] = split[11];
+            output[2][4] = split[10];
         }
-        //Si el elemento no existe, se devuelve null
-        else{
+        // Si el elemento no existe, se devuelve null
+        else {
             output = null;
         }
         return output;
     }
+
 }
