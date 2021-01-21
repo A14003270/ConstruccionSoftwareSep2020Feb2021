@@ -1,4 +1,4 @@
-3/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,11 +9,12 @@ import bank.controller.BankTextController;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.util.Vector;
 
 
 public class BankUI extends javax.swing.JFrame {
 
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = getTablaModelo();
     /**
      * Creates new form Ui
      */
@@ -23,6 +24,26 @@ public class BankUI extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Proyecto Banco");
         //cargarModeloTabla();
+    }
+
+    public void actualizarTablaModelo(String[][] lista) {
+        for (int i = 0; i < 3; i++) {
+            Vector<Object> Datos = new Vector<Object>();
+            for (int k = 0; k < 5; k++) {
+                Datos.add(lista[i][k]);
+            }
+            modelo.addRow(Datos);
+        }
+    }
+
+    public DefaultTableModel getTablaModelo() {
+        DefaultTableModel TablaBuscados = new DefaultTableModel();
+        TablaBuscados.addColumn("ID");
+        TablaBuscados.addColumn("Nombre");
+        TablaBuscados.addColumn("Apellido");
+        TablaBuscados.addColumn("Cuenta");
+        TablaBuscados.addColumn("Saldo");
+        return TablaBuscados;
     }
 
     /**
@@ -159,72 +180,18 @@ public class BankUI extends javax.swing.JFrame {
     //Metodo que corre al presionar el boton. Busca un elemento en un Hashtable,
     //y lo coloca en una tabla
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         String key;
         key = jTextField1.getText();
-        /*BankTextController control = new BankTextController(); 
-        //Llama a la funcion de controller que busca el elemento en el HashTable
+        BankTextController control = new BankTextController();
         String[][] table = control.getHashTable(key);
-        //Si el elemento existe, lo coloca en la tabla
         if(table!=null){
-            cargarModeloTabla(table);
+            actualizarTablaModelo(table);
         }
-        //Si el elemento no existe, crea una ventana mostrando que el elemento no existe
         else{
             JOptionPane.showMessageDialog(this, "Key not found", "Error", JOptionPane.WARNING_MESSAGE);
-        }*/
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    //Este metodo carga el modewlo la tabla
-    public void cargarModeloTabla(String[][] lista){
-        /*
-        Cuando un JScrollPane contiene a un JTable, se pueden configurar para 
-        que aparezcan las barras horizontal y vertical del scrollpane, 
-        sin embargo la barra horizontal no aparece en un primer momento debido 
-        a que la tabla tiene habilitada la opcion de autoresize. Deshabilitando 
-        esta opcion, aparecera sin problemas la barra horizontal.
-        */
-        BankTextController control = new BankTextController();
-        tablaBanco.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tablaBanco.doLayout();
-		
-		
-	//obtener nombres
-	String nombres[] = control.getHeader();
-	modelo.addColumn(nombres[0]);
-        modelo.addColumn(nombres[1]);
-        modelo.addColumn(nombres[2]);
-	
-        //Funcion que retornara la matriz de strings para actualizar la matriz
-        int numFilas = lista.length;
-        int numcolumnas = 0;
-        int valor;
-        for(int i = 0; i<numFilas; i++){
-            valor = lista[i].length;
-            if(valor > numcolumnas){
-                numcolumnas = valor;
-            }
         }
-		
-		
-        //Funcion Para agragar cuentas a las columnas de acuerdo a cuantas columnas se necesitaran
-        
-        int totalColumnas = numcolumnas - 3;//Num de columnas que faltan por nombrar
-        for(int j = 1; j<=totalColumnas; j++){
-            modelo.addColumn(nombres[3]);
-        }
-        //funcion para establecer el num de filas que abra en la tabla
-        modelo.setNumRows(numFilas);
-        //funcion para introducir los valores a la tabla
-        numcolumnas = 0;
-        for(int i = 0; i<numFilas; i++){
-            numcolumnas = lista[i].length;
-            for(int j = 0; j<numcolumnas; j++){
-                modelo.setValueAt(lista[i][j], i, j);
-            }
-        }
-        
     }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

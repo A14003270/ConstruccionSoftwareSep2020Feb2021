@@ -37,11 +37,7 @@ public class BankTextController {
         }
         return output;
     }
-    
-    public String[] getHeader(){
-        String[] header = {"ID","First Name","Last Name","Accounts"};
-        return header;
-    }
+
     
     //Recibe un hashTable y busca una key, si existe, regresa una tabla con
     //la informacion del resultado de la busqueda. Si no existe, regresa
