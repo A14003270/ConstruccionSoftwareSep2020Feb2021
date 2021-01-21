@@ -47,7 +47,7 @@ public class BankTextController {
         int j;
         BankTextReader bankBuilder = new BankTextReader();
         Hashtable<String,String> input = bankBuilder.bankHashReader("Bank.txt");
-        String[][] output = new String[0][4];
+        String[][] output = new String[1][4];
         //Si existe el elemento
         if(input.containsKey(key)){
             String line;

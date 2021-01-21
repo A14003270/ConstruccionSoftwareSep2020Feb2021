@@ -86,7 +86,7 @@ public class BankUI extends javax.swing.JFrame {
 
         jLabel2.setText("Key");
 
-        jLabel3.setText("Key = FN + LN (Sin espacios)");
+        jLabel3.setText("Key = FN_LN");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,17 +180,27 @@ public class BankUI extends javax.swing.JFrame {
     //Metodo que corre al presionar el boton. Busca un elemento en un Hashtable,
     //y lo coloca en una tabla
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String key;
-        key = jTextField1.getText();
-        BankTextController control = new BankTextController();
-        String[][] table = control.getHashTable(key);
-        if(table!=null){
-            actualizarTablaModelo(table);
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Key not found", "Error", JOptionPane.WARNING_MESSAGE);
+        String key = jTextField1.getText();
+        if(validateKey(key)) {
+            BankTextController control = new BankTextController();
+            String[][] table = control.getHashTable(key);
+            if (table != null) {
+                actualizarTablaModelo(table);
+            } else {
+                JOptionPane.showMessageDialog(this, "Key not found", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
+    private boolean validateKey(String key) {
+        if(key != null && key.contains("_")) {
+            return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "El primer nombre y segundo nombre deben estar separados por un guin bajo (_)");
+        }
+      return false;
+    }
+
 
 
 
