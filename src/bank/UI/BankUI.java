@@ -1,4 +1,4 @@
-3/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -65,7 +65,7 @@ public class BankUI extends javax.swing.JFrame {
 
         jLabel2.setText("Key");
 
-        jLabel3.setText("Key = FN + LN (Sin espacios)");
+        jLabel3.setText("Key = FN_LN");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -159,22 +159,26 @@ public class BankUI extends javax.swing.JFrame {
     //Metodo que corre al presionar el boton. Busca un elemento en un Hashtable,
     //y lo coloca en una tabla
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String key;
-        key = jTextField1.getText();
-        /*BankTextController control = new BankTextController(); 
-        //Llama a la funcion de controller que busca el elemento en el HashTable
-        String[][] table = control.getHashTable(key);
-        //Si el elemento existe, lo coloca en la tabla
-        if(table!=null){
-            cargarModeloTabla(table);
+        String key = jTextField1.getText();
+        if(validateKey(key)) {
+            BankTextController control = new BankTextController();
+            String[][] table = control.getHashTable(key);
+            if (table != null) {
+                cargarModeloTabla(table);
+            } else {
+                JOptionPane.showMessageDialog(this, "Key not found", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         }
-        //Si el elemento no existe, crea una ventana mostrando que el elemento no existe
+    }
+    private boolean validateKey(String key) {
+        if(key != null && key.contains("_")) {
+            return true;
+        }
         else{
-            JOptionPane.showMessageDialog(this, "Key not found", "Error", JOptionPane.WARNING_MESSAGE);
-        }*/
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+            JOptionPane.showMessageDialog(this, "El primer nombre y segundo nombre deben estar separados por un guin bajo (_)");
+        }
+      return false;
+    }
     //Este metodo carga el modewlo la tabla
     public void cargarModeloTabla(String[][] lista){
         /*
