@@ -14,7 +14,7 @@ import java.util.Vector;
 
 public class BankUI extends javax.swing.JFrame {
 
-    private DefaultTableModel modelo = getTablaModelo();
+
     /**
      * Creates new form Ui
      */
@@ -37,7 +37,12 @@ public class BankUI extends javax.swing.JFrame {
     }
 
     public DefaultTableModel getTablaModelo() {
-        DefaultTableModel TablaBuscados = new DefaultTableModel();
+        DefaultTableModel TablaBuscados = new DefaultTableModel(){
+          @Override
+          public boolean isCellEditable(int row, int column) {
+              return false;
+          }
+        };
         TablaBuscados.addColumn("ID");
         TablaBuscados.addColumn("Nombre");
         TablaBuscados.addColumn("Apellido");
@@ -71,7 +76,7 @@ public class BankUI extends javax.swing.JFrame {
         tablaBanco.setModel(modelo);
         jScrollPane1.setViewportView(tablaBanco);
 
-        jButton1.setText("Search");
+        jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -84,9 +89,11 @@ public class BankUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Key");
+        jLabel2.setText("Llave");
 
-        jLabel3.setText("Key = FN_LN");
+
+        jLabel3.setText("Llave = primer nombre _ apellido (Sin espacios)");
+
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
